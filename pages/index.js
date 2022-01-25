@@ -1,11 +1,23 @@
 import Head from 'next/head'
-import Image from 'next/image'
-//import styles from '../styles/Home.module.css'
+import { useState } from 'react';
+
 
 import Nav from '../components/Nav/Nav.js'
 import Category from '../components/Category/Category.js'
+import { groceries } from '../redux/store/index.js'
 
 export default function Home() {
+
+  const [groceryObjects, setGroceryObjects] = useState({});
+  function onFormChange (ev) {
+    const {name, value} = ev.target;
+    const groceryObjectsCopy = {...groceryObjects};
+    setGroceryObjects({
+      ...groceryObjectsCopy,
+      [name]: value,
+    });
+  };
+
   return (
     <div >
       <Head>
@@ -16,7 +28,20 @@ export default function Home() {
       <Nav />
       <main>
       <section className="text-gray-600 body-font">
-        <Category />
+        <h2>Current state</h2>
+        <div>{Object.entries(groceryObjects).map(([key, value]) => (
+          <div>value: {key}, {value}</div>
+              // Pretty straightforward - use key for the key and value for the value.
+              // Just to clarify: unlike object destructuring, the parameter names don't matter here.
+              ))}
+        </div>
+        {groceries.map(category => (
+            <Category
+            category={category.category}
+            description={category.description}
+            items={category.items}
+            onFormChange={onFormChange} />
+        ))}
       </section>
       </main>
 
