@@ -10,7 +10,7 @@ return (
         </div>
         <div className="flex flex-wrap -m-2">
             {items.map(item => (
-                <Item name={item} onFormChange={onFormChange}/>
+                <Item name={item} key={item} onFormChange={onFormChange}/>
             ))}
         </div>
     </div>
