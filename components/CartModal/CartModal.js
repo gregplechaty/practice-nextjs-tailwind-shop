@@ -37,9 +37,8 @@ export default function Modal(props) {
                 <div>{groceryObjects && 
                 <div>
                 {Object.entries(groceryObjects).map(([key, value]) => (
+                    value > 0 &&
                     <div>{key}: {value}</div>
-                        // Pretty straightforward - use key for the key and value for the value.
-                        // Just to clarify: unlike object destructuring, the parameter names don't matter here.
                         ))}
                         
                         </div>}

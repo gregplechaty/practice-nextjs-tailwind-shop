@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 import Nav from '../components/Nav/Nav.js'
@@ -9,8 +9,22 @@ import { groceries } from '../redux/store/index.js'
 
 export default function Home() {
 
-
   const [groceryObjects, setGroceryObjects] = useState({});
+
+  useEffect(() => {
+    createGroceryObjectsInitialState(groceries)
+  }, [groceries]);
+  
+  function createGroceryObjectsInitialState(groceryObject) {
+    let groceryObjectsInitialState = {};
+    for (let category of groceryObject) {
+      for (let item of category.items) {
+        groceryObjectsInitialState[item] = 0;
+      };
+    };
+    setGroceryObjects(groceryObjectsInitialState);
+  };
+
   function onFormChange (ev) {
     const {name, value} = ev.target;
     const groceryObjectsCopy = {...groceryObjects};
